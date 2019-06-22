@@ -1,0 +1,112 @@
+#include <bits/stdc++.h> //TIMEOUT?
+#include<math.h>
+using namespace std;
+bool checkprime(long long n){
+    long long i;
+    if(n==2||n==3||n==5||n==7||n==11||n==13){
+        return true;
+    }
+    if(n%2==0||n%3==0||n%5==0){
+        return false;
+    }
+    else{
+        for(i=5;i<=sqrt(n);i+=6){
+            if((n%i)==0||(n%(i+2))==0){
+                return false;
+            }
+        }
+    }
+    return true;
+}
+
+long long callfn(long long  a[],long long  n){
+	sort(a,a+n);
+	//Now check if the lowest number a[0] is prime,if not return -1 DONE
+    if(checkprime(a[0])){	
+    	long long z=a[0]*a[n-1];
+    	for(long long i=1;i<=(n-1)/2;++i){
+    		if(z!=a[i]*a[n-i-1]){
+    			return -1;
+    		}
+    	}
+    	//Check no of factors of z if they all occur
+    	long long na=1;
+    	long long za=z;
+    	int x;
+    	for(x=1;;za/=2,x++){
+    	    if(za%2){
+    	        break;
+    	    }
+    	}
+    	na*=x;
+    	for(long long i=3;i<=za;++i,++i){
+    	    if(checkprime(i)){
+    	        int x;
+        	    for(x=1;;za/=i,x++){
+        	        if(za%i){
+        	          break;
+        	        }
+            	}
+            	na*=x;
+    	    }	
+    	}
+    	if(na==n+2){
+    	    return z;
+    	}
+    	return -1;
+    }
+    else{
+        return -1;
+    }
+
+}
+//Check if they are prime, if they are all,multiply them all and return 
+//What if some factors are missing? DONE OR SO I THINK TIMOUTPROBLEM
+//Other things to consider include squares which have odd no of factors DONE
+//Check if the middle no is the sqrt of the given no DONE
+// 2 4 DONE
+// 2 9 DONE
+//Other cases can be found by the bs input finding function
+// Cases of only 1 factor or 2 factor has to given sp attention DONE
+//Primality test for 1 factor and 2 factors only input DONE
+
+int main(){
+	long long ans=1,k;
+	long long ar[310],n;
+	cin>>n;
+	for(long long  i=0;i<n;++i){
+		cin>>k;
+		for(long long j=0;j<k;++j){
+			cin>>ar[j];
+		}
+		if(k!=1&&k!=2){
+	   	    long long  h=callfn(ar,k);
+		    cout<<h<<endl;
+		}
+		else{
+		    
+		    if(k-1){
+		        if(checkprime(ar[0])&&checkprime(ar[1])||(checkprime(ar[0])&&ar[1]==ar[0]*ar[0])||(checkprime(ar[1])&&ar[0]==ar[1]*ar[1])){
+		            cout<<ar[0]*ar[1]<<endl;
+		        }
+		        else{
+		            cout<<"-1"<<endl;
+		        }
+		        //Check if both a[0] &a[1] are prime and reutn prdt if prime,else -1 DONE
+		    }
+		    else{
+                if(checkprime(ar[0])){
+                    cout<<ar[0]*ar[0]<<endl;
+                }
+                else{
+                    cout<<"-1"<<endl;
+                }
+                
+		        //Check if a[0] is prime and return square if, else -1    DONE
+		        
+		    }
+		    
+		}    
+	}
+	return 0;
+}

@@ -1,0 +1,97 @@
+/*Max Product Of array 
+Returned answer is in form
+2 i where i index needs to be deletd
+OR
+1 i j means index i must be multiplied with index j to get the product and the result is stored in the index i
+
+*/
+
+#include<iostream>
+using namespace std;
+main(){
+	long n;
+	cin>>n;
+	bool minflag=false,flag=false,flag2=true;
+	long i,minusct=0,minmaxindex=-1,firstgoodindex,firstzerindex,zerct=0,x=0,minmax=INT_MIN;
+	long a[n];
+	for( i=0;i<n;++i){
+		cin>>a[i];
+		if(a[i]<0){
+			minusct++;
+			if(minmax<a[i]){
+				minmax=a[i];
+				minmaxindex=i;
+			}
+		}
+		else{
+			if(a[i]==0){
+				if(!flag){
+					firstzerindex=i;
+					flag=true;
+				}
+				zerct++;
+			}
+			else{
+				if(flag2){
+					firstgoodindex=i;
+					flag2=false;
+				}
+			}
+		}	
+	}
+	if(minusct%2){
+	    if(zerct){
+    		for(i=0;i<n;++i){
+    			if(((a[i]==0)||(i==minmaxindex))&&(i!=firstzerindex)){
+    				cout<<"1"<<" "<<i+1<<" "<<firstzerindex+1<<endl;x++;
+    			}
+    		}
+	    }
+		if(zerct==0){
+		    if(minusct!=0){
+		        cout<<"2"<<" "<<minmaxindex+1<<endl;++x;
+		    } 
+		}
+		else{
+    		if(x!=n-1){
+    			cout<<"2"<<" "<<firstzerindex+1<<endl;++x;
+    		}
+		}
+		for(i=0;i<n;++i){
+			if((a[i]!=0)&&(i!=minmaxindex)){
+				break;
+			}
+		}
+		if(x!=n-1){
+    		for(firstgoodindex=i,++i;i<n;++i){
+    			if(a[i]&&(i!=minmaxindex)){
+    				cout<<"1"<<" "<<i+1<<" "<<firstgoodindex+1<<endl;x++;
+    			}
+    		}
+		}	
+	}
+	else{
+		for(i=firstzerindex+1;i<n;++i){
+			if(!a[i]){
+				cout<<"1"<<" "<<i+1<<" "<<firstzerindex+1<<endl;x++;
+			}
+		}
+		if(zerct){
+    		if(x!=n-1){
+    			cout<<"2"<<" "<<firstzerindex+1<<endl;++x;
+    		}
+		}	
+		for(i=0;i<n;++i){
+			if((a[i]!=0)){
+				break;
+			}
+		}
+		if(x!=n-1){
+    		for(firstgoodindex=i,++i;i<n;++i){
+    			if(a[i]){
+    				cout<<"1"<<" "<<i+1<<" "<<firstgoodindex+1<<endl;x++;
+    			}
+    		}
+		}	
+	}
+}
