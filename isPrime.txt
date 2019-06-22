@@ -1,0 +1,29 @@
+#include<bits/stdc++.h>
+using namespace std;
+bool isPrime(long long no){
+	if(no<2){
+		return false;
+	}
+	if(no==2||no==3||no==5||no==7||no==11){
+		return true;
+	}
+	if(n%2){
+		if(n%3){
+			for(long long i=5;i<=sqrt(n);++i,++i,++i,++i,++i,++i){		//i+=6
+				if(((n)%(i))&&(n%(i+2)))){
+				
+				}
+				else{
+					return false;
+				}
+			}
+		}
+		else{
+			return false;
+		}
+	}
+	else{
+		return false;
+	}
+	return true;
+}

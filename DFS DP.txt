@@ -1,0 +1,108 @@
+/*
+598D
+Igor in Museum
+Need memset
+
+*/
+#include <bits/stdc++.h>
+using namespace std;
+typedef long long lld;
+typedef unsigned long long ull;
+const int inf_int = 1e9 + 100;
+typedef long double dbl;
+#define pb push_back
+#define mp make_pair
+const double pi = 3.1415926535898;
+#define dout if(debug) cout
+#define fi first
+#define se second
+#define sp setprecision
+#define sz(a) (int(a.size()))
+#define all(a) a.begin(),a.end()
+#define fastread ios_base::sync_with_stdio(false);cin.tie(NULL);cout.tie(NULL)
+
+bool debug = 0;
+const int MAXN = 4e5 + 100;
+const int LOG = 20;
+const int mod = 1e9 + 7;
+const int MX = 1e5 + 100;
+
+
+lld n,l,k,posit=0,m,stat=1,mx=0,my=0,sum=0,zeros=0,ones=0;
+char x,y;
+int ans[1003][1003];
+//lld ans[200013],ansindex=1;
+//vector <lld> a[200013];
+//int a[250013];
+bool visited[1002][1002];
+vector <pair<int,int> > answer;
+lld traverse(char a[][1004],lld x,lld y){
+	lld sum=0;
+	if(visited[x][y]){
+		return 0;
+	}
+	visited[x][y]=true;
+	answer.pb(mp(x,y));
+	if(a[x][y+1]=='*'){
+	    sum++;
+	}
+	else{
+	    sum+=traverse(a,x,y+1);
+	}
+	if(a[x][y-1]=='*'){
+	    sum++;
+	}
+	else{
+	    sum+=traverse(a,x,y-1);
+	}
+	if(a[x+1][y]=='*'){
+	    sum++;
+	}
+	else{
+	    sum+=traverse(a,x+1,y);
+	}
+	if(a[x-1][y]=='*'){
+	    sum++;
+	}
+	else{
+	    sum+=traverse(a,x-1,y);
+	}
+	return sum;
+}
+main(){
+	fastread;
+	cin>>n>>l>>k;
+	char a[1004][1004];
+	for(int i=1;i<=n;++i){
+		for(int j=1;j<=l;++j){
+				visited[i][j]=false;
+				cin>>a[i][j];
+		}
+	}
+	for(int i=0;i<=1001;++i){
+		for(int j=0;j<=1001;++j){
+			if(i==0||j==0||j==l+1||i==n+1){
+				visited[i][j]=true;
+			}
+		}
+	}
+	while(k--){
+		cin>>mx>>my;
+        
+	    if(visited[mx][my]){
+	        cout<<ans[mx][my]<<endl;
+	    }
+	    else{
+	        lld k=traverse(a,mx,my);
+    	    for(vector<pair<int,int> >::iterator i=answer.begin();i!=answer.end();++i){/*Check if syntax*/
+    	        ans[i->first][i->second]=k;
+    	    }
+    	    cout<<k<<endl;
+	    }
+	    while(!(answer.empty())){
+		    answer.pop_back();
+		}
+
+	}
+}
+//

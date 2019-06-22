@@ -1,0 +1,77 @@
+/*
+1095C
+Representing a number in an array of 1s and 0s which are it's binary representation
+BitManip
+*/
+#include <bits/stdc++.h>
+using namespace std;
+typedef long long lld;
+typedef unsigned long long ull;
+const int inf_int = 1e9 + 100;
+typedef long double dbl;
+#define pb push_back
+#define mp make_pair
+const double pi = 3.1415926535898;
+#define dout if(debug) cout
+#define fi first
+#define se second
+#define sp setprecision
+#define sz(a) (int(a.size()))
+#define all(a) a.begin(),a.end()
+#define fastread ios_base::sync_with_stdio(false);cin.tie(NULL);cout.tie(NULL)
+
+bool debug = 0;
+const int MAXN = 4e5 + 100;
+const int LOG = 20;
+const int mod = 1e9 + 7;
+const int MX = 1e5 + 100;
+
+
+lld n,l,k,posit=0,m,stat=1,mx=0,my=0,sum=0,zeros=0,ones=0;
+char x,y;
+lld ans[200013],ansindex=1;
+//vector <lld> a[200013];
+int a[250013];
+ 
+main(){
+	fastread;
+	vector <pair<int,int> > ar;
+	cin>>n>>k;
+
+	int no_of_1s=0;
+	mx=n;
+	int bit[500],ix=0;;
+	for(;mx;mx/=2){
+		bit[ix++]=mx%2;
+		no_of_1s+=mx%2;
+	}
+
+	if(no_of_1s>k||k>n){
+		cout<<"NO";
+	}
+	else{
+		for(int i=ix-1;no_of_1s!=k&&i>0;){
+			if(!bit[i]){
+				i--;
+			}
+			else{
+		    	bit[i]--;
+		    	bit[i-1]+=2;
+		    	no_of_1s++;
+			}
+		}
+		if(no_of_1s==k){
+		    cout<<"YES\n";
+    		for(int i=1,j=0;j<ix;i*=2,++j){
+    			if(bit[j]){
+    				for(int m=0;m<bit[j];++m){
+    					cout<<i<<" ";
+    				}
+    			}
+    		}
+		}
+		else{
+		    cout<<"NO";
+		}
+	}
+}
