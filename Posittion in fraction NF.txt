@@ -1,0 +1,21 @@
+#include <bits/stdc++.h>
+using namespace std;
+main(){
+	bool flag=true;
+	int x;
+	long long nr,dr;
+	cin>>nr>>dr>>x;
+	long double z=(double)nr/(double)dr;
+	for(int i=1;i<=dr;++i){
+		z*=10;
+		if((int)z==x){
+			cout<<i<<endl;
+			flag=false;
+			break;
+		}
+		z-=(int)z;
+	}
+	if(flag){
+		cout<<"-1";
+	}
+}

@@ -1,0 +1,108 @@
+//1114C
+#include<bits/stdc++.h>
+#define ipa pair<lld,lld>
+#define lld long long int
+#define x first
+#define y second
+#define ld long double
+#define pb push_back
+#define fastread ios_base::sync_with_stdio(false);cin.tie(NULL);cout.tie(NULL)
+#define PI (atan(1)*4)
+#define mp make_pair
+#define mlog 21
+#define mod 1000000000
+using namespace std;
+const lld maxn=1e6+2;
+bool isprime(lld b){
+	if(b==2||b==3||b==5||b==7||b==11){
+	    return true;
+	}
+	if(b%2){
+	   if(b%3==0){
+	       return false;
+	   } 
+	   for(lld i=5;i<=sqrt(b);i+=6){
+	       if(b%i==0||b%(i+2)==0){
+	           return false;
+	       }
+	   } 
+	}
+	else{
+	    return false;
+	}
+	return true;
+}
+main()
+{
+	fastread;
+	lld n,ans,b,count;
+	cin>>n>>b;
+    lld zans[70],zcount[70],indexforzarray=0;
+	if(!(isprime(b))){
+	    	if(b%2==0){
+        		ans=2;
+        		count=1;
+        		for(;!(b%2);){
+        			b/=2;
+        			count++;
+        		}
+        		count--;
+				zans[indexforzarray]=2;
+				zcount[indexforzarray]=count;
+				indexforzarray++;
+			}
+			if(isprime(b)){
+			    zans[indexforzarray]=b;
+			    zcount[indexforzarray]=count;
+			    indexforzarray++;
+			}
+			else{
+                for(lld i=3;i<=b;++i,++i){
+                    bool flag=false;
+            		if(!(b%i)){
+            			ans=i;
+            			count=1;
+            			for(;!(b%i);){
+            				b/=i;
+            				count++;
+            			}
+            			count--;
+        				zans[indexforzarray]=ans;
+        				zcount[indexforzarray]=count;
+        				indexforzarray++;
+            			flag=true;
+            		}
+            		if(flag){
+            		    if(isprime(b)){
+                            if(b>ans){
+                                ans=b;
+                                count=1;
+                                zans[indexforzarray]=b;
+                			    zcount[indexforzarray]=count;
+                			    indexforzarray++;break;
+                            }
+                        }
+            		}
+            	}
+			}	
+	}
+	else{
+	    ans=b;count=1;
+	}
+	lld az=n,realans=0,bigestprim=ans;
+	for(;n;){
+		realans+=(n/(bigestprim));
+		n=n/ans;
+	}
+	lld realrealans=realans/count;
+	for(lld m=0;m<indexforzarray;++m){
+		realans=0;
+		lld ak=az;
+		for(;ak;){
+			realans+=(ak/(zans[m]));
+			ak=ak/zans[m];
+		}
+		realrealans=min(realans/zcount[m],realrealans);
+	}
+	cout<<realrealans;
+}

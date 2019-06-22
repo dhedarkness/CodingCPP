@@ -1,0 +1,88 @@
+/*
+598D
+Igor in Museum
+Need memset
+
+*/
+#include <bits/stdc++.h>
+using namespace std;
+typedef long long lld;
+typedef unsigned long long ull;
+const int inf_int = 1e9 + 100;
+typedef long double dbl;
+#define pb push_back
+#define mp make_pair
+const double pi = 3.1415926535898;
+#define dout if(debug) cout
+#define fi first
+#define se second
+#define sp setprecision
+#define sz(a) (int(a.size()))
+#define all(a) a.begin(),a.end()
+#define fastread ios_base::sync_with_stdio(false);cin.tie(NULL);cout.tie(NULL)
+
+bool debug = 0;
+const int MAXN = 4e5 + 100;
+const int LOG = 20;
+const int mod = 1e9 + 7;
+const int MX = 1e5 + 100;
+
+
+lld n,l,k,posit=0,m,stat=1,mx=0,my=0,sum=0,zeros=0,ones=0;
+char x,y;
+//int ans[1003][1003];
+//lld ans[200013],ansindex=1;
+//vector <lld> a[200013];
+//int a[250013];
+bool visited[1004];
+int ans[1004];
+vector <int> a[1003];
+int main(){
+    fastread;
+    cin>>n;
+    while(n--){
+        cin>>l>>k;
+        for(int i=0;i<=1002;++i){
+            ans[i]=-1;
+            visited[i]=false;
+        }
+        for(int i=1;i<=k;++i){
+            cin>>mx>>my;
+            a[mx].pb(my);
+            a[my].pb(mx);
+        }
+        cin>>k;
+        ans[k]=0;
+        lld six=6;
+        queue<pair<int,int> > q;
+        q.push(make_pair(k,0));
+        while(!(q.empty())){
+            pair<int,int> k=q.front();q.pop();
+            visited[k.first]=true;
+            for(auto i:a[k.first]){
+                if(visited[i]){
+                    
+                }
+                else{
+                    six=k.second;
+                    ans[i]=six+6;
+                    q.push(make_pair(i,ans[i]));
+                    visited[i]=true;
+                }
+            }
+        }
+        
+        for(int i=1;i<=l;++i){
+            if(ans[i]){
+                cout<<ans[i]<<" ";
+            }
+        }
+        cout<<endl;
+        for(int i=0;i<=1000;++i){
+            a[i].clear();
+        }
+    }
+    
+    return 0;
+}
+//

@@ -1,0 +1,136 @@
+/*
+1185B
+Check submit which output
+2 pointers
+Keyboard broke
+PROBLEM STATEMENT:
+Methodius received an email from his friend Polycarp. However, Polycarp's keyboard is broken, so pressing a key on it once may cause the corresponding symbol to appear more than once (if you press a key on a regular keyboard, it prints exactly one symbol).
+
+For example, as a result of typing the word "hello", the following words could be printed: "hello", "hhhhello", "hheeeellllooo", but the following could not be printed: "hell", "helo", "hhllllooo".
+
+Note, that when you press a key, the corresponding symbol must appear (possibly, more than once). The keyboard is broken in a random manner, it means that pressing the same key you can get the different number of letters in the result.
+
+For each word in the letter, Methodius has guessed what word Polycarp actually wanted to write, but he is not sure about it, so he asks you to help him.
+
+You are given a list of pairs of words. For each pair, determine if the second word could be printed by typing the first one on Polycarp's keyboard.
+
+Input
+The first line of the input contains one integer n (1≤n≤105) — the number of pairs to check. Further input contains n descriptions of pairs.
+
+The first line of each description contains a single non-empty word s consisting of lowercase Latin letters. The second line of the description contains a single non-empty word t consisting of lowercase Latin letters. The lengths of both strings are not greater than 106.
+
+It is guaranteed that the total length of all words s in the input is not greater than 106. Also, it is guaranteed that the total length of all words t in the input is not greater than 106.
+
+Output
+Output n lines. In the i-th line for the i-th pair of words s and t print YES if the word t could be printed by typing the word s. Otherwise, print NO
+
+
+
+*/
+#include <bits/stdc++.h>
+using namespace std;
+typedef long long lld;
+typedef unsigned long long ull;
+const int inf_int = 1e9 + 100;
+typedef long double dbl;
+#define pb push_back
+#define mp make_pair
+const double pi = 3.1415926535898;
+#define dout if(debug) cout
+#define fi first
+#define se second
+#define sp setprecision
+#define sz(a) (int(a.size()))
+#define all(a) a.begin(),a.end()
+#define fastread ios_base::sync_with_stdio(false);cin.tie(NULL);cout.tie(NULL)
+
+bool debug = 0;
+const int MAXN = 4e5 + 100;
+const int LOG = 20;
+const int mod = 1e9 + 7;
+const int MX = 1e5 + 100;
+
+
+lld n,l,k,posit=0,m,stat=1,mx=0,my=0,sum=0,zeros=0,ones=0;
+char x,y;
+//int ans[1003][1003];
+//lld ans[200013],ansindex=1;
+//vector <lld> a[200013];
+//int a[250013];
+bool visited[1004];
+int ans[1004];
+vector <int> a[1003];
+int main(){
+    fastread;
+    cin>>n;
+	string s1,s2;
+	int idx=0;
+	/*string c1[280],c2[280];
+	if(n>1000){
+	    for(int i=1;i<280;++i){
+	        cin>>c1[i]>>c2[i];
+	    }
+	    cout<<c1[276]<<endl;
+	    cout<<c2[276]<<endl;
+	}*/
+    while(n--){
+        bool flag=true;
+		cin>>s1;
+		cin>>s2;
+		s1[s1.length()]=s1[s1.length()-1];
+		s2[s2.length()]=s2[s2.length()-1];
+		int i=0,j=0;
+		if(s1[0]==s2[0]&&s2.length()>=s1.length()){
+			for(;i<s1.length()&&j<s2.length();){
+			    if(s1.length()-i>s2.length()-j){
+			        flag=false;break;
+			    }
+				if(s1[i]==s2[j]){
+    				if(i==s1.length()-1){
+    				    ++j;
+    				}
+    				else{
+    				    ++i;++j;
+    				}
+				}
+				else{
+					if(s2[j]==s2[j-1]){
+						++j;
+					}
+					else{
+						flag=false;break;
+					}
+				}
+			}
+			if(s1[i]!=s2[j]){
+			    flag=false;
+			}
+			++i;++j;
+			if(i<s1.length()){
+				flag=false;
+			}
+			if(j<s2.length()){
+				for(;j<s2.length();++j){
+					if(s2[j]!=s2[j-1]&&s2[j]!=s1[i]){
+						flag=false;break;
+					}
+				}
+			}
+			if(flag){
+				cout<<"YES"<<endl;
+			}
+			else{
+				cout<<"NO"<<endl;
+			}
+		}
+		else{
+			cout<<"NO\n";
+		}
+	/*	if(idx==276){
+		    c1=s1;
+		    c2=s2;
+		}*/
+	}
+	
+}
+//

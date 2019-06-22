@@ -1,0 +1,64 @@
+/*
+
+*/
+#include <bits/stdc++.h>
+using namespace std;
+typedef long long lld;
+typedef unsigned long long ull;
+const int inf_int = 1e9 + 100;
+typedef long double dbl;
+#define pb push_back
+const double pi = 3.1415926535898;
+#define dout if(debug) cout
+#define fi first
+#define se second
+#define sp setprecision
+#define sz(a) (int(a.size()))
+#define all(a) a.begin(),a.end()
+bool debug = 0;
+const int MAXN = 4e5 + 100;
+const int LOG = 20;
+const int mod = 1e9 + 7;
+const int MX = 1e5 + 100;
+
+
+/*
+start with 1 and search in map
+if searchno exists in the map return (1+(1/x(search(every element belong to x,where x is no of nieghbours of n))))
+if not exist return 1, which already has been visited*
+
+*/
+lld n,k,posit=0,m,stat=1,mx=0,my=0,sum=0,zeros=0,ones=0;
+char x,y;
+vector <int> a[100100];
+double dfs(lld m,lld j=-1){
+	if(a[m].empty()){
+		return 1.00;
+	}
+	long double sum=0.00;
+	for(auto p: a[m]){
+	    if(p!=j){
+		    sum+=(double)(dfs(p,m)+1);
+	    }
+	}
+	if(sum){
+	    double z=a[m].size();
+	    if(j!=-1){
+	        z--;
+	    }
+	    return ((double)(sum/z));
+    }
+    return 0.00;
+}    
+main(){
+	lld pos=0;
+	cin>>n;
+	for(int i=1;i<n;++i){
+		cin>>mx>>my;
+		a[mx].push_back(my);
+		a[my].push_back(mx);
+	}
+	double ans=0.00;
+	std::cout<<std::setprecision(8)<<dfs(1);
+}
+//

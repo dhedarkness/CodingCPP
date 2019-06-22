@@ -1,0 +1,192 @@
+//834C
+#include<bits/stdc++.h>
+#define lld long long int
+#define ipa pair<lld,lld>
+#define X first
+#define Y second
+#define ld long double
+#define pb push_back
+#define fastread ios_base::sync_with_stdio(false);cin.tie(NULL);cout.tie(NULL)
+#define PI (atan(1)*4)
+#define mp make_pair
+#define mlog 21
+#define mod 1000000000
+using namespace std;
+const lld maxn=1e6+2;
+lld z[100002];
+bool isprime(lld b){
+    if(b==1){
+        return false;
+    }
+	if(b==2||b==3||b==5||b==7||b==11){
+	    return true;
+	}
+	if(b%2){
+	   if(b%3==0){
+	       return false;
+	   } 
+	   for(lld i=5;i<=sqrt(b);i+=6){
+	       if(b%i==0||b%(i+2)==0){
+	           return false;
+	       }
+	   } 
+	}
+	else{
+	    return false;
+	}
+	return true;
+}
+main()
+{
+	fastread;
+	lld n,ans,a,b,x,y,count,m;
+	cin>>n;
+	while(n--){
+		cin>>a>>b;
+		if(a==1||b==1){
+			if(a-b){
+				cout<<"No\n";
+			}
+			else{
+				cout<<"Yes\n";
+			}
+		}
+		else{
+			x=b;y=a;
+			lld zansb[70],zcountb[70],zansa[70],zcounta[70],indexforzarray=0,indexforzaarray=0;
+			if(!(isprime(b))){
+					if(b%2==0){
+						ans=2;
+						count=1;
+						for(;!(b%2);){
+							b/=2;
+							count++;
+						}
+						count--;
+						zansb[indexforzarray]=2;
+						zcountb[indexforzarray]=count;
+						indexforzarray++;
+					}
+					if(isprime(b)){
+						zansb[indexforzarray]=b;
+						zcountb[indexforzarray]=1;
+						indexforzarray++;
+					}
+					else{
+						for(lld i=3;i<=b;++i,++i){
+							bool flag=false;
+							if(!(b%i)){
+								ans=i;
+								count=1;
+								for(;!(b%i);){
+									b/=i;
+									count++;
+								}
+								count--;
+								zansb[indexforzarray]=ans;
+								zcountb[indexforzarray]=count;
+								indexforzarray++;
+								flag=true;
+							}
+							if(flag){
+								if(isprime(b)){
+								
+										ans=b;
+										count=1;
+										zansb[indexforzarray]=b;
+										zcountb[indexforzarray]=count;
+										indexforzarray++;break;
+								
+								}
+							}
+						}
+					}	
+			}
+			else{
+				zansb[0]=b;zcountb[0]=1;
+				indexforzarray++;
+			}
+			if(!(isprime(a))){
+					if(a%2==0){
+						ans=2;
+						count=1;
+						for(;!(a%2);){
+							a/=2;
+							count++;
+						}
+						count--;
+						zansa[indexforzaarray]=2;
+						zcounta[indexforzaarray]=count;
+						indexforzaarray++;
+					}
+					if(isprime(a)){
+						zansa[indexforzaarray]=a;
+						zcounta[indexforzaarray]=1;
+						indexforzaarray++;
+					}
+					else{
+						for(lld i=3;i<=a;++i,++i){
+							bool flag=false;
+							if(!(a%i)){
+								ans=i;
+								count=1;
+								for(;!(a%i);){
+									a/=i;
+									count++;
+								}
+								count--;
+								zansa[indexforzaarray]=ans;
+								zcounta[indexforzaarray]=count;
+								indexforzaarray++;
+								flag=true;
+							}
+							if(flag){
+								if(isprime(a)){
+								
+										ans=a;
+										count=1;
+										zansa[indexforzaarray]=a;
+										zcounta[indexforzaarray]=count;
+										indexforzaarray++;break;
+								
+								}
+							}
+						}
+					}	
+			}
+			else{
+				zansa[0]=a;zcounta[0]=1;
+				indexforzaarray++;
+			}
+			if(indexforzaarray!=indexforzarray){
+				cout<<"No\n";
+			}
+			else{
+			    	for(int i=0;i<indexforzaarray;++i){
+    				    cout<<zansa[i]<<" "<<zcounta[i]<<endl;
+    				    cout<<zansb[i]<<" "<<zcountb[i]<<endl;
+    				}
+    				cout<<endl;
+				bool flag=true;
+				for(int i=0;i<indexforzaarray;++i){
+					if(zansa[i]!=zansb[i]){
+						flag=false;break;
+					}
+					if((zcounta[i]+zcountb[i])%3){
+						flag=false;break;
+					}
+					if(zcounta[i]<(zcountb[i]/2)||zcountb[i]<(zcounta[i]/2)){
+					    flag=false;break;
+					}
+				}
+				if(flag){
+					cout<<"Yes\n";
+				}
+				else{
+					cout<<"No\n";
+				}
+			}
+		}
+	}
+	
+}

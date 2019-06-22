@@ -1,0 +1,21 @@
+int findMergeNode(SinglyLinkedListNode* head1, SinglyLinkedListNode* head2) {
+    vector <SinglyLinkedListNode*> data1;
+    vector <SinglyLinkedListNode*> data2;
+    SinglyLinkedListNode* mover1=NULL;
+    SinglyLinkedListNode* mover2=NULL;
+    mover1=head1;
+    mover2=head2;
+    for(;mover1!=NULL;mover1=mover1->next){
+        data1.push_back(mover1);
+    } 
+    for(;mover2!=NULL;mover2=mover2->next){
+        data2.push_back(mover2);
+    } 
+    for(;data1.back()==data2.back();){
+        data1.pop_back();
+        data2.pop_back();
+    }
+    mover1=data1.back();
+    return (mover1->next->data);
+}
+DEBUG TEST CASE
